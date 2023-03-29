@@ -41,5 +41,9 @@ def internal_server_error(e):
 def denied():
     return render_template("denied.html")
 
+@app.route("/success")
+def success():
+    return render_template("success.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
