@@ -1,0 +1,50 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+
+<div class="alert alert-success alert-dismissible fade show alert-msg" role="alert">
+	{{ message }}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+{% endfor %}
+        <div class="container">
+		<h1>Add Blog Post </h1>
+		<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+			<form method="POST">
+				{{ form.hidden_tag() }}
+				{{ form.title.label(class="form-label") }} {{ form.title(class="form-control") }}
+				{{ form.slug.label(class="form-label") }} {{ form.slug(class="form-control") }}
+				{{ form.author.label(class="form-label") }} {{ form.author(class="form-control") }}
+				{{ form.content.label(class="form-label") }} {{ form.content(class="form-control", rows="5") }}
+				{{ form.submit(class="btn btn-warning lbb") }}
+			</form>
+		</div> <br><br><br>
+
+		<table class="table table-hover table-bordered table-striped">
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Slug</th>
+				<th>Author</th>
+				<th>Date Added</th>
+				<th>Delete</th>
+				
+			</tr>
+			{% for post in posts %}
+			
+			<tr>
+				<td>{{ post.id }}</td>
+				<td> <a href="#"> {{ post.title }} </a></td>
+				<td>{{ post.slug }}</td>
+				<td>{{ post.author }}</td>
+				<td>{{ post.date_added }}</td>
+				<!--<td><a href="{{ url_for('delete', id=post.id) }}"> delete </a></td>-->
+				
+			</tr>
+				{% endfor %}
+			</table>
+        </div>
+{% endblock %}
