@@ -1,12 +1,22 @@
 {% extends 'header.html' %}
 
 {% block content %}
-        <div class="container">
-		<h1>Login</h1>
-			<form method="POST" action="{{ url_for('login') }}">
-				{{ form.email.label(class="form-label") }} {{ form.email(class="form-control") }}
+
+{% for message in get_flashed_messages() %}
+
+<div class="alert alert-success alert-dismissible fade show alert-msg" role="alert">
+	{{ message }}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+{% endfor %}
+
+			<h1>Login</h1>
+			<form method="POST">
+				{{ form.hidden_tag() }}
+				{{ form.username.label(class="form-label") }} {{ form.username(class="form-control") }}
 				{{ form.password.label(class="form-label") }} {{ form.password(class="form-control") }}
-				<input type="submit" class="btn btn-primary pizza" value="Log In">
+				{{ form.submit(class="btn btn-warning lbb") }}
 			</form>
-        </div>
+        </div>	
 {% endblock %}
