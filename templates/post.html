@@ -13,12 +13,14 @@
         <div class="container">
 			<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
 				<h1>{{ post.title }} </h1>
-				<h6>by:{{ post.author }}</h6><br>
-				<p>{{ post.content }}</p><br>
+				<h6>by:{{ post.poster.name }}</h6><br>
+				<p>{{ post.content | safe }}</p><br>
 			</div>
 			<a href="{{ url_for('posts') }}", class="btn btn-warning"> All Posts </a>
+			{% if post.poster.id == current_user.id %}
 			<a href="{{ url_for('edit_post', id=post.id) }}", class="btn btn-secondary"> Edit Post </a>
 			<a href="{{ url_for('delete_post', id=post.id) }}" class="btn btn-danger"> Delete </a>
+			{% endif %}
 		</div>
         
 {% endblock %}

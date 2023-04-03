@@ -10,11 +10,41 @@
 {% endfor %}
 
 {% block content %}
-<div class="jumbotron">
-	<div class="container">
-		<h1>User Dashboard</h1>
-		<p>We will back shorlty, just applying CPR</p>
-		<a href="/" class="btn btn-outline-warning" role="button">Back to Home?</a>
+<div class="container">
+<h1>Your Dashboard</h1>
+	<div class="shadow p-3 mb-5 bg-body-tertiary rounded ">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<p><strong>Name:</strong> {{ current_user.name }}</p>
+					<p><strong>Username:</strong> {{ current_user.username }}</p>
+					<p><strong>Favourite Color: </strong>{{ current_user.fav_color }}</p>
+					<p><strong>Password:</strong> {{ current_user.password }}</p>
+					<p><strong>UserID:</strong> {{ current_user.id }}</p>
+					<p><strong>Date Joined:</strong> {{ (current_user.date_added).strftime("%d/%m/%Y") }}</p><br>
+					<a href="{{ url_for('logout') }}" class="btn btn-secondary text-light me-2 sm">Logout</a>
+					<a href="{{ url_for('update', id=current_user.id) }}" class="btn btn-warning sm">Update Profile</a>
+					<a href="{{ url_for('delete', id=current_user.id) }}" class="btn btn-danger sm"> Delete Profile </a>
+				</div>
+				<div class="col-4">
+					<img src="{{ url_for( 'static', filename='images/profile.png') }}" alt="placeholder profile picture" width="150" align=”right”>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+		<div class="card-header"><h2>Update Profile</h2></div>
+		<form action="/dashboard" method="POST">
+				{{ form.hidden_tag() }}
+				{{ form.name.label(class="form-label") }} {{ form.name(class="form-control", value=name_to_update.name) }}
+				{{ form.username.label(class="form-label") }} {{ form.username(class="form-control", value=name_to_update.username) }}
+				{{ form.email.label(class="form-label") }} {{ form.email(class="form-control", value=name_to_update.email) }}
+				{{ form.fav_color.label(class="form-label") }} {{ form.fav_color(class="form-control", value=name_to_update.fav_color) }}
+				{{ form.submit(class="btn btn-warning lbb") }}
+			</form>
 	</div>
 </div>
 {% endblock %}

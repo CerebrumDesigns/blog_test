@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{{ ckeditor.load() }}
+
 {% for message in get_flashed_messages() %}
 
 <div class="alert alert-success alert-dismissible fade show alert-msg" role="alert">
@@ -10,19 +12,18 @@
   </div>
 
 {% endfor %}
-        <div class="container">
+    <div class="container">
 		<h1>Add Blog Post </h1>
 		<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
 			<form method="POST">
 				{{ form.hidden_tag() }}
 				{{ form.title.label(class="form-label") }} {{ form.title(class="form-control") }}
 				{{ form.slug.label(class="form-label") }} {{ form.slug(class="form-control") }}
-				{{ form.author.label(class="form-label") }} {{ form.author(class="form-control") }}
 				{{ form.content.label(class="form-label") }} {{ form.content(class="form-control", rows="5") }}
 				{{ form.submit(class="btn btn-warning lbb") }}
 			</form>
-		</div> <br><br><br>
-
-		
-        </div>
+			{{ ckeditor.load() }}
+			{{ ckeditor.config(name='content') }}		
+		</div> 
+    </div>
 {% endblock %}
