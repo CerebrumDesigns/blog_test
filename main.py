@@ -9,6 +9,7 @@ from flask_login import LoginManager, login_user, UserMixin, login_required, log
 from webforms import UserForm, BlogForm, LoginForm, SearchForm, SimplifyForm
 from flask_ckeditor import CKEditor
 import openai
+import os
 
 app = Flask(__name__)
 ckeditor = CKEditor(app)
@@ -72,6 +73,7 @@ db.create_all()
 @app.route("/", methods=["POST", "GET"])
 def home():
     form = SimplifyForm()
+    openai.api_key = os.environ["OPENAI_API_KEY"]
     if form.validate_on_submit():
         response = openai.Completion.create(
             model="text-davinci-003",
