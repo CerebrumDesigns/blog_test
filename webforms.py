@@ -36,3 +36,7 @@ class BlogForm(FlaskForm):
 class SearchForm(FlaskForm):
     searched = StringField(label='Search')
     submit = SubmitField(label="Search")
+
+class SimplifyForm(FlaskForm):
+    simplify_me = StringField(validators=[DataRequired("You need to complete this field")], widget=TextArea())
+    submit = SubmitField(label="Simplify")

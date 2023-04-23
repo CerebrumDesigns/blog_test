@@ -4,8 +4,18 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1>Welcome</h1>
-		<p>Are you ready to discover my secret?</p>
-		<a href="/login" class="btn btn-outline-warning" role="button">Login</a>
-	</div>
+		<h3>What would you like to simplify?</h3>
+			<form method="POST">
+				{{ form.hidden_tag() }}
+				{{ form.simplify_me(class="form-control", rows="5") }}
+				{{ form.submit(class="btn btn-warning lbb") }}
+			</form>
+		</br>
+		{% if simplified %}
+		<h3>The simplified version</h3>
+		<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+			<p>{{ simplified }}</p>
+		</div>
+		{% endif %}
 </div>
 {% endblock %}

@@ -6,12 +6,14 @@ from datetime import datetime
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, UserMixin, login_required, logout_user, login_remembered, current_user
-from webforms import UserForm, BlogForm, LoginForm, SearchForm
+from webforms import UserForm, BlogForm, LoginForm, SearchForm, SimplifyForm
 from flask_ckeditor import CKEditor
+import openai
 
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.secret_key = "1234"
+openai.api_key = "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"
 app.config["SECRET_KEY"] = "my test key"
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///add_user.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:Horeca1986@localhost/users"
@@ -68,10 +70,24 @@ class Users(db.Model, UserMixin):
 
 db.create_all()
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def home():
-    return render_template('index.html')
-
+    form = SimplifyForm()
+    if form.validate_on_submit():
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=f"Summarize this for a second-grade student:\n\n {form.simplify_me.data}",
+            temperature=0,
+            max_tokens=60,
+            top_p=1.0,
+            frequency_penalty=0.0,
+            presence_penalty=0.0
+        )
+        form.simplify_me.data = ""
+        simplified = (response["choices"][0]["text"])
+        return render_template('index.html', simplified=simplified, form=form)
+    else:
+        return render_template('index.html', form=form)
 @app.route("/admin")
 @login_required
 def admin():
