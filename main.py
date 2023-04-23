@@ -13,7 +13,6 @@ import openai
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.secret_key = "1234"
-openai.api_key = "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"
 app.config["SECRET_KEY"] = "my test key"
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///add_user.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:Horeca1986@localhost/users"
