@@ -87,6 +87,7 @@ def home():
         simplified = (response["choices"][0]["text"])
         return render_template('index.html', simplified=simplified, form=form)
     else:
+        print("02")
         return render_template('index.html', form=form)
 @app.route("/admin")
 @login_required
