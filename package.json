@@ -1,0 +1,20 @@
+{
+    "name": "blog_test",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "build": "echo \"No build specified\" && exit 1",
+        "test": "echo \"No test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CerebrumDesigns/blog_test.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/CerebrumDesigns/blog_test/issues"
+    },
+    "homepage": "https://github.com/CerebrumDesigns/blog_test#readme"
+}
